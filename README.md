@@ -1,6 +1,8 @@
 # cuda_toys
 This repo is an accumulation of some fun HPC toys with CUDA/Thrust and OpenMP.
 
+Each project in examples has its own README.md for specific instructions and notes about the project.
+
 ## Build
 These projects use CMake. There's a top level ``CMakeLists.txt``, and each example project also has a CMakeLists.txt that is used to build each individually. 
 ```bash
