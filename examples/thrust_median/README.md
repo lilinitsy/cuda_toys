@@ -1,5 +1,5 @@
 # thrust_median
-This sample compares finding the median of a 1M element array on the CPU (CPU code courtesy of Sam E. Whitebrook) vs using Thrust.
+This sample compares finding the median of a 1M element array on the CPU (CPU code courtesy of Sam E. Whitebook) vs using Thrust.
 
 Typically, on the first invocation, a ton of driver stuff happens, so the computations are fairly slow on the GPU the first time since thrust also handles much initialization. On subsequent runs, the speedups are noticeable.
 
