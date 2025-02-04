@@ -9,7 +9,7 @@
 #include <thrust/host_vector.h>
 #include <thrust/sort.h>
 
-const size_t SIZE = 1e6; // 1,000,000
+const size_t SIZE = 2e6; // 1,000,000
 
 
 
@@ -65,20 +65,13 @@ __host__ float thrust_find_median(thrust::device_vector<float> &device_vec)
 	size_t midpoint = device_vec.size() / 2;
 	float  mid1     = device_vec[midpoint];
 
-	// float mid1;
-	// thrust::copy_n(device_vec.begin() + midpoint, 1, &mid1);
-
 	if(device_vec.size() & 0b01 == 0)
 	{
 		float mid2 = device_vec[midpoint - 1];
-		// float mid2;
-		// thrust::copy_n(device_vec.begin() + midpoint - 1, 1, &mid2);
 		return (mid1 + mid2) / 2.0f;
-		// return (device_vec[midpoint] + device_vec[midpoint - 1]) / 2.0f;
 	}
 
 	return mid1;
-	// return device_vec[midpoint];
 }
 
 
