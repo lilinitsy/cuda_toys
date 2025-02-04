@@ -24,4 +24,4 @@ set(CMAKE_CUDA_FLAGS "${CUDA_ARCH_FLAGS} -O3 --use_fast_math -lineinfo")
 
 # Add subdirectories for programs
 add_subdirectory(examples/thrust_median)
-
+add_subdirectory(examples/thrust_with_kernel)
