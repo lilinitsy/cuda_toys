@@ -132,11 +132,11 @@ int main()
 	float *summed_vecs = cpu_add_vec(data1, data2, SIZE, SIZE);
 
 	end_time = std::chrono::high_resolution_clock::now();
-	dt_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-	dt_us = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+	dt_us    = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 	printf("CPU add time: %lu ms %lu us\n", dt_ms.count(), dt_us.count());
-		
+
 
 	// Time finding median
 	start_time = std::chrono::high_resolution_clock::now();
@@ -184,35 +184,35 @@ int main()
 	cudaMemcpy(data_b, host_vec_b.data(), SIZE * sizeof(float), cudaMemcpyHostToDevice);
 
 	end_time = std::chrono::high_resolution_clock::now();
-	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);	
+	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 	dt_us    = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 	printf("CUDA data transfer time (for generated data, coming from CPU generation): %lu ms %lu us\n", dt_ms.count(), dt_us.count());
 
 	// Time vector add kernel
 
-	
+
 	start_time = std::chrono::high_resolution_clock::now();
 
 	int threadcount = 256;
-	int blocks = (SIZE + threadcount - 1) / threadcount;
+	int blocks      = (SIZE + threadcount - 1) / threadcount;
 	vector_add_kernel<<<blocks, threadcount>>>(data_a, data_b, data_c, SIZE);
 	cudaDeviceSynchronize();
 
 	end_time = std::chrono::high_resolution_clock::now();
-	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);	
+	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 	dt_us    = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-	
+
 	printf("CUDA vector add kernel time: %lu ms %lu ms\n", dt_ms.count(), dt_us.count());
 
 	// Find median with thrust
-	start_time       = std::chrono::high_resolution_clock::now();
+	start_time = std::chrono::high_resolution_clock::now();
 
 	float gpu_median = thrust_find_median(data_c, SIZE);
-	
-	end_time         = std::chrono::high_resolution_clock::now();
-	dt_ms            = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
-	dt_us            = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
+
+	end_time = std::chrono::high_resolution_clock::now();
+	dt_ms    = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+	dt_us    = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
 
 	printf("Thrust Median %f\nThrust Time to find median: %lu ms %lu us\n", gpu_median, dt_ms.count(), dt_us.count());
 
